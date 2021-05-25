@@ -23,4 +23,16 @@ public class JobPosition {
 	@Column(name="title")
 	private String position;
 
+	public JobPosition(int id, String position) {
+		super();
+		this.id = id;
+		this.position = position;
+	}
+
+	public JobPosition() {
+	
+	}
+	
+	
+
 }
