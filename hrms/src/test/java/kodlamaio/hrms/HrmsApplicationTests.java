@@ -8,6 +8,7 @@ class HrmsApplicationTests {
 
 	@Test
 	void contextLoads() {
+		//
 	}
 
 }
