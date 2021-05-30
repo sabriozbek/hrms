@@ -46,7 +46,8 @@ private VerificationCodeEmployerService verificationCodeEmployerService;
 	            }
 	        }
 
-	        return new ErrorResult("Yanlış doğrulama kodu.");
+	        return new ErrorResult("Yanlış doğrulama kodu.xsaa"+ entityId+ ""+code);
+	       
 	    }
 	}
 
