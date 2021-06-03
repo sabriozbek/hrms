@@ -31,7 +31,7 @@ private int id;
 private String githubAdress;
 
 @Column(name="linkedin_adress")
-private String linkedinAdressString;
+private String linkedinAdress;
 
 @OneToOne
 @JoinColumn(name="candidate_id")
@@ -55,10 +55,10 @@ private List<CoverLetter> coverLetters;
 @OneToMany(mappedBy = "curriculumVitae")
 private List<ProgrammingSkill> programmingSkills;
 
-public CurriculumVitae(String githubAdress, String linkedinAdressString, Candidate candidate) {
+public CurriculumVitae(Candidate candidate,String githubAdress,String linkedinAdress) {
 	
 	this.githubAdress = githubAdress;
-	this.linkedinAdressString = linkedinAdressString;
+	this.linkedinAdress = linkedinAdress;
 	this.candidate = candidate;
 }
 

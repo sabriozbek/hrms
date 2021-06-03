@@ -8,19 +8,8 @@ import kodlamaio.hrms.entities.concretes.CurriculumVitae;
 public interface CurriculumVitaeService {
 	Result add(int candidateId,String githubAdress,String linkedinAdress);
 	DataResult<CurriculumVitae> getCv(int candidateId);
-	Result addEducationToCv(String schoolName, String department, int startTimeYear, int startTimeMonth, int startTimeDay, 
-			int graduateTimeYear, int graduateTimeMonth, int graduateTimeDay, boolean isGraduated, int candidateId);
 	
-
-	Result addJobExpreienceToCv(String workplaceName, String positionName, int startTimeYear, int startTimeMonth, int startTimeDay, 
-			int endTimeYear, int endTimeMonth, int endTimeDay, boolean isWorkingNow, int candidateId);
-
- 
-	Result addLanguageToCv(String languageName,int languageLevel,int candidateId);
+	Result updateCv(int candidateId,String githubAddress,String linkedinAdress);
 	
-	Result addProgrammingSkillToCv(String programmingSkillName,int candidateId);
-	
-	Result addCoverLetterToCv(String letter,int candidateId);
-
 }
 
