@@ -5,8 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 import kodlamaio.hrms.business.abstracts.PhotoService;
 import kodlamaio.hrms.core.utilities.results.DataResult;
+import kodlamaio.hrms.core.utilities.results.ErrorResult;
 import kodlamaio.hrms.core.utilities.results.Result;
 import kodlamaio.hrms.core.utilities.results.SuccessDataResult;
 import kodlamaio.hrms.core.utilities.results.SuccessResult;
@@ -16,7 +18,6 @@ import kodlamaio.hrms.dataAccess.abstracts.PhotoDao;
 import kodlamaio.hrms.entities.concretes.Candidate;
 import kodlamaio.hrms.entities.concretes.CurriculumVitae;
 import kodlamaio.hrms.entities.concretes.Photo;
-import net.bytebuddy.asm.Advice.This;
 @Service
 public class PhotoManager implements PhotoService{
 
@@ -60,4 +61,19 @@ public class PhotoManager implements PhotoService{
 		return new SuccessDataResult<Photo>(this.photoDao.getById(id));
 	}
 
+	@Override
+	public Result deletePhotoFromCv(int candidateId, int photoId) {
+		
+		Candidate candidate=this.candidateDao.getById(candidateId);
+		for(Photo p:candidate.getCurriculumVitae().getPhotos()) {
+			if(p.getId()==photoId) {
+				this.photoDao.deleteById(photoId);
+				return new SuccessResult("Fotoğraf özgeçmişinizden başarıyla silinmiştir.");
+			}
+			
+		}
+		return new ErrorResult("Silinecek fotoğraf bulunmamaktadır.");
+	}
+
+	
 }

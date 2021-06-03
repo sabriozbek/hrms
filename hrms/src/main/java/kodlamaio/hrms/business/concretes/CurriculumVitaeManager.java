@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 import org.apache.commons.lang3.ThreadUtils.ThreadIdPredicate;
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.stereotype.Service;
 
 import kodlamaio.hrms.business.abstracts.CurriculumVitaeService;
 import kodlamaio.hrms.core.utilities.results.DataResult;
@@ -27,7 +27,7 @@ import kodlamaio.hrms.entities.concretes.JobExpreince;
 import kodlamaio.hrms.entities.concretes.Language;
 import kodlamaio.hrms.entities.concretes.ProgrammingSkill;
 
-
+@Service
 public class CurriculumVitaeManager implements CurriculumVitaeService{
 
 	private CurriculumVitaeDao curriculumVitaeDao;

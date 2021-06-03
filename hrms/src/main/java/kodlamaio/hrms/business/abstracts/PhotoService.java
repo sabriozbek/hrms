@@ -12,5 +12,6 @@ public interface PhotoService {
 	Result add(Photo photo,int candidateId);
 	Result delete(int id);
 	DataResult<Photo> getById(int id);
+	Result deletePhotoFromCv(int candidateId, int photoId);
 
 }
