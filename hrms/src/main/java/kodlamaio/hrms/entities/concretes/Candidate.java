@@ -32,9 +32,27 @@ public class Candidate extends User{
 	 @Column(name = "birth_year")
 	 private int birthYear;
 	 
+
+	 
 	 @OneToMany(mappedBy = "candidate")
 	 private List<Photo> photos;
 	 
 	 @OneToOne(mappedBy = "candidate")
 	 private CurriculumVitae curriculumVitae;
+	 
+
+	public Candidate(String email, String password, String passwordRepat, String firtsName, String lastName,
+			String identityId, int birthYear) {
+		super(email, password, passwordRepat);
+		this.firtsName = firtsName;
+		this.lastName = lastName;
+		this.identityId = identityId;
+		this.birthYear = birthYear;
+		
+		
+		
+	}
+	 
+	 
 }
+

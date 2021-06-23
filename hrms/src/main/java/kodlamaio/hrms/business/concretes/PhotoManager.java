@@ -48,6 +48,15 @@ public class PhotoManager implements PhotoService{
 		return new SuccessResult("Fotoğraf kaydedilmiştir.");
 		
 	}
+	@Override
+	public Result addCandidatePhoto(Photo photo, int candidateId) {
+		Candidate candidate=this.candidateDao.getById(candidateId);
+		
+			photo.setCandidate(candidate);
+	this.photoDao.save(photo);
+		return new SuccessResult("Fotoğraf kaydedilmiştir.");
+		
+	}
 
 	@Override
 	public Result delete(int id) {

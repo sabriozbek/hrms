@@ -1,6 +1,7 @@
 package kodlamaio.hrms.entities.concretes;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -60,6 +61,14 @@ private JobPosition jobPositon;
 @ManyToOne()
 @JoinColumn(name="city_id")
 private City city;
+
+@ManyToOne()
+@JoinColumn(name="workplace_id")
+private WorkPlace workPlace;
+
+@ManyToOne()
+@JoinColumn(name = "work_time_id")
+private WorkTime workTime;
 
 
 }

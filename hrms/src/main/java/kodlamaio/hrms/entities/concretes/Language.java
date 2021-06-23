@@ -10,6 +10,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -28,11 +30,11 @@ public class Language {
 	@Column(name = "id")
 	private int id;
 	
+    @NotNull
 	@Column(name = "language_name")
 	private String languageName;
 	
-	@Min(value = 1)
-	@Max(value = 5)
+	
 	@Column(name = "language_level")
 	private int languageLevel;
 	

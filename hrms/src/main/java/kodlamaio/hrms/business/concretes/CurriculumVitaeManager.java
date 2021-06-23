@@ -1,6 +1,7 @@
 package kodlamaio.hrms.business.concretes;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.apache.commons.lang3.ThreadUtils.ThreadIdPredicate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,7 @@ import kodlamaio.hrms.entities.concretes.Education;
 import kodlamaio.hrms.entities.concretes.JobExpreince;
 import kodlamaio.hrms.entities.concretes.Language;
 import kodlamaio.hrms.entities.concretes.ProgrammingSkill;
+import net.bytebuddy.asm.Advice.This;
 
 @Service
 public class CurriculumVitaeManager implements CurriculumVitaeService{
@@ -73,7 +75,11 @@ public class CurriculumVitaeManager implements CurriculumVitaeService{
 		
 		
 	}
-	
+
+
+
+
+
 	
 
 

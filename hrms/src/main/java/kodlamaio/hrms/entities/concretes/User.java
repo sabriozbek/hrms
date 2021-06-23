@@ -25,6 +25,13 @@ public class User {
 	private String password;
 	private String passwordRepat;
 	
+	public User(String email, String password, String passwordRepat) {
+		super();
+		this.email = email;
+		this.password = password;
+		this.passwordRepat = passwordRepat;
+	}
+	
 
 	
 }

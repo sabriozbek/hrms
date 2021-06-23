@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +26,7 @@ import kodlamaio.hrms.entities.concretes.Photo;
 
 @RestController
 @RequestMapping("api/photos/")
+@CrossOrigin
 public class PhotoControlller {
 
 	private CloudinaryService cloudinaryService;

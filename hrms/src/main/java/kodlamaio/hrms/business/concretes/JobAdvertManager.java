@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+
 import kodlamaio.hrms.business.abstracts.JobAdvertService;
 import kodlamaio.hrms.core.utilities.results.DataResult;
 import kodlamaio.hrms.core.utilities.results.ErrorDataResult;
@@ -14,18 +15,39 @@ import kodlamaio.hrms.core.utilities.results.ErrorResult;
 import kodlamaio.hrms.core.utilities.results.Result;
 import kodlamaio.hrms.core.utilities.results.SuccessDataResult;
 import kodlamaio.hrms.core.utilities.results.SuccessResult;
+import kodlamaio.hrms.dataAccess.abstracts.CityDao;
+import kodlamaio.hrms.dataAccess.abstracts.EmployerDao;
 import kodlamaio.hrms.dataAccess.abstracts.JobAdvertDao;
+import kodlamaio.hrms.dataAccess.abstracts.JobPositionDao;
+import kodlamaio.hrms.dataAccess.abstracts.WorkPlaceDao;
+import kodlamaio.hrms.dataAccess.abstracts.WorkTimeDao;
 import kodlamaio.hrms.entities.concretes.JobAdvert;
+import kodlamaio.hrms.entities.dtos.JobAdvertDto;
 
 
 @Service
 public class JobAdvertManager implements JobAdvertService{
 private JobAdvertDao jobAdvertDao;
+private EmployerDao employerDao;
+private CityDao cityDao;
+private JobPositionDao jobPositiondao;
+private WorkPlaceDao workPlaceDao;
+private WorkTimeDao workTimeDao;
+
+	
 @Autowired
-	public JobAdvertManager(JobAdvertDao jobAdvertDao) {
+	public JobAdvertManager(JobAdvertDao jobAdvertDao, EmployerDao employerDao, CityDao cityDao,
+		JobPositionDao jobPositiondao, WorkPlaceDao workPlaceDao, WorkTimeDao workTimeDao) {
 	super();
 	this.jobAdvertDao = jobAdvertDao;
+	this.employerDao = employerDao;
+	this.cityDao = cityDao;
+	this.jobPositiondao = jobPositiondao;
+	this.workPlaceDao = workPlaceDao;
+	this.workTimeDao = workTimeDao;
 }
+
+
 
 	@Override
 	public DataResult<List<JobAdvert>> getAll() {
@@ -34,13 +56,7 @@ private JobAdvertDao jobAdvertDao;
 		(this.jobAdvertDao.findAll(),"İş ilanları başarıyla listelendi");
 	}
 
-	@Override
-	public Result add(JobAdvert jobAdvert) {
-		jobAdvert.getCreateDate().equals(LocalDate.now());
-		jobAdvert.setActive(true);
-		jobAdvertDao.save(jobAdvert);
-		return new SuccessResult("İş ilanı başarıyla eklenmiştir.");
-	}
+	
 
 	@Override
 	public Result changeJobAdvertStatus(int jobAdvertId) {
@@ -87,5 +103,42 @@ private JobAdvertDao jobAdvertDao;
 		// TODO Auto-generated method stub
 		return new SuccessDataResult<List<JobAdvert>>(jobAdvertDao.getByIsActiveAndEmployerId(true, employerId));
 	}
+
+	@Override
+	public DataResult<List<JobAdvert>> getByIsPassiveJobAdverts() {
+		// TODO Auto-generated method stub
+		return new SuccessDataResult<List<JobAdvert>>(jobAdvertDao.getByIsActive(false));
+	}
+
+	@Override
+	public Result delete(int jobAdvertId) {
+		// TODO Auto-generated method stub
+		 jobAdvertDao.deleteById(jobAdvertId);;
+		 return new SuccessResult("İlan başarıyla silinmiştir.");
+		
+	}
+
+	@Override
+	public Result add(JobAdvertDto jobAdvertDto) {
+	JobAdvert jobAdvert=new JobAdvert();
+	jobAdvert.setEmployer(this.employerDao.getOne(jobAdvertDto.getEmployerId()));
+	jobAdvert.setCity(this.cityDao.getOne(jobAdvertDto.getCityId()));
+	jobAdvert.setDescription(jobAdvertDto.getDescription());
+	jobAdvert.setJobPositon(this.jobPositiondao.getOne(jobAdvertDto.getJobPositionId()));
+	jobAdvert.setApplicaitonDeadlineDate(jobAdvertDto.getApplicaitonDeadlineDate());
+	jobAdvert.setMinsalary(jobAdvertDto.getMinSalary());
+	jobAdvert.setMaxSalary(jobAdvertDto.getMaxSalary());
+
+	jobAdvert.setOpenPositionCount(jobAdvertDto.getOpenPositionCount());
+	jobAdvert.setWorkPlace(this.workPlaceDao.getOne(jobAdvertDto.getWorkPlaceId()));
+	jobAdvert.setWorkTime(this.workTimeDao.getOne(jobAdvertDto.getWorkTimeId()));
+	jobAdvert.setCreateDate(LocalDate.now());
+	jobAdvert.setActive(false);
+	
+	this.jobAdvertDao.save(jobAdvert);
+	return new SuccessResult("Başarıyla ilan oluşturulmuştur.");
+	}
+
+	
 
 }
